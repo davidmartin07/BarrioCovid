@@ -48,7 +48,7 @@ public class VoluntarioController {
         return "voluntario/home";
     }
 
-    //to go accept volunteer order after seller confirmed
+ 
     @GetMapping("/voluntario/{idpedido}/pedidoAceptado")
     public String aceptarPedidoVol(@PathVariable("idpedido") Integer idpedido) {
         Optional<Pedido> pedido = pedidoRepository.findById(idpedido);
@@ -69,7 +69,6 @@ public class VoluntarioController {
         return "redirect:/voluntario/" + pedido.get().getVoluntario().getId();
     }
 
-    //to go deny volunteer order after seller confirmed
     @GetMapping("/voluntario/{idpedido}/pedidoDenegado")
     public String denegarPedidoVol(@PathVariable("idpedido") Integer idpedido) {
         Optional<Pedido> pedido = pedidoRepository.findById(idpedido);
