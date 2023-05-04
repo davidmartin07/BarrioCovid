@@ -63,7 +63,7 @@ public class VoluntarioController {
     public String entregadoPedidoVol(@PathVariable("idpedido") Integer idpedido) {
         Optional<Pedido> pedido = pedidoRepository.findById(idpedido);
         if (pedido.get().getEstado().equals("Aceptado por el vendedor") ||pedido.get().getEstado().equals("Aceptado por voluntario")  || pedido.get().getEstado().equals("Pedido entregado") ){
-            pedido.get().setEstado("Orden entregada por voluntario");
+            pedido.get().setEstado("Pedido finalizado");
             pedidoRepository.save(pedido.get());
         }
         return "redirect:/voluntario/" + pedido.get().getVoluntario().getId();
@@ -84,7 +84,7 @@ public class VoluntarioController {
     public String verpedidosconfirmados(Model model, @PathVariable("idvoluntario") Integer idvoluntario) {
         Optional<Usuario> usuario= usuarioRepository.findById(idvoluntario);
         List<Pedido> pedidos = (List<Pedido>) pedidoRepository.findByVoluntario(usuario.get());
-        List<Pedido> filtered= pedidos.stream().filter(p->p.getEstado().equals("Pedido entregado") || p.getEstado().equals("Orden entregada por voluntario")).collect(Collectors.toList());
+        List<Pedido> filtered= pedidos.stream().filter(p->p.getEstado().equals("Pedido entregado") || p.getEstado().equals("Pedido finalizado")).collect(Collectors.toList());
         model.addAttribute("pedidos",filtered);
         model.addAttribute("idvoluntario",idvoluntario);
         return "voluntario/pedidosconfirmados";

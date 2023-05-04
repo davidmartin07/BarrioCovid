@@ -139,7 +139,7 @@ public class TiendaController {
         List<Pedido> pedidos1 = new ArrayList<>();
         Optional<Usuario> usuario = usuarioRepository.findByEmail(principal.getName());
         for (Pedido pedido : pedidos) {
-            if (pedido.getLineaPedidos().get(0).getProducto().getUsuario().getId().equals(usuario.get().getId()) && (pedido.getEstado().equals("Pedido entregado") || pedido.getEstado().equals("Aceptado por voluntario") || pedido.getEstado().equals("Orden entregada por voluntario"))) {
+            if (pedido.getLineaPedidos().get(0).getProducto().getUsuario().getId().equals(usuario.get().getId()) && (pedido.getEstado().equals("Pedido entregado") || pedido.getEstado().equals("Aceptado por voluntario") || pedido.getEstado().equals("Pedido finalizado"))) {
                 pedidos1.add(pedido);
             }
 

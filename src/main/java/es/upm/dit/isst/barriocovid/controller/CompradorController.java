@@ -184,6 +184,10 @@ public class CompradorController {
             redirectAttributes.addFlashAttribute("message","El pedido ya fue aceptado por el vendedor y el voluntario, no se puede cancelar el pedido");
             return "redirect:/comprador/" + pedido.get().getUsuario().getId();
         }
+        if(pedido.get().getEstado().equals("Pedido finalizado") ) {
+            redirectAttributes.addFlashAttribute("message","El pedido que intenta cancelar ya ha sido entregado");
+            return "redirect:/comprador/" + pedido.get().getUsuario().getId();
+        }
         pedido.get().setEstado("Pedido cancelado");
         pedidoRepository.save(pedido.get());
         return "redirect:/comprador/" + pedido.get().getUsuario().getId();
