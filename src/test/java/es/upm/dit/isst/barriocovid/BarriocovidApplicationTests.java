@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import es.upm.dit.isst.barriocovid.model.Producto;
+import es.upm.dit.isst.barriocovid.model.Role;
 import es.upm.dit.isst.barriocovid.model.Usuario;
 import es.upm.dit.isst.barriocovid.repository.ProductoRepository;
+import es.upm.dit.isst.barriocovid.repository.RoleRepository;
 import es.upm.dit.isst.barriocovid.repository.UsuarioRepository;
 
 @SpringBootTest
@@ -25,6 +27,9 @@ class BarriocovidApplicationTests {
 
 	@Autowired
 	private ProductoRepository productoRepo;
+
+	@Autowired
+	private RoleRepository roleRepo;
 
 
 	@Test
@@ -95,6 +100,21 @@ class BarriocovidApplicationTests {
 		productoRepo.delete(producto);
 		producto2 = productoRepo.findById(7);
 		assertFalse(producto2.isPresent());
+	}
+
+	@Test
+	final void RolTest(){
+		Role rol = new Role();
+
+		rol.setId(1L);
+		rol.setName("COMPRADOR");
+		roleRepo.save(rol);
+
+		Optional<Role> rol2 = roleRepo.findByName("COMPRADOR");
+
+		assertEquals(rol2.get().getId(), rol.getId());
+		assertEquals(rol2.get().getName(), rol.getName());
+
 	}
 }
 
