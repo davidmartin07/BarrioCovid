@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="pedidos")
+@Table(name = "pedidos")
 public class Pedido {
 
     @Id
@@ -17,7 +17,6 @@ public class Pedido {
 
     @Column
     private double ticket;
-
 
     public String getEstado() {
         return estado;
@@ -33,8 +32,6 @@ public class Pedido {
     @ManyToOne
     private Usuario voluntario;
 
-
-
     public Usuario getVoluntario() {
         return voluntario;
     }
@@ -44,11 +41,7 @@ public class Pedido {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "pedido_linear_pedidos",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "linea_pedido_id")
-    )
+    @JoinTable(name = "pedido_linear_pedidos", joinColumns = @JoinColumn(name = "pedido_id"), inverseJoinColumns = @JoinColumn(name = "linea_pedido_id"))
     private List<LineaPedido> lineaPedidos;
 
     public Pedido() {
@@ -62,8 +55,6 @@ public class Pedido {
         this.lineaPedidos = lineaPedidos;
     }
 
-
-
     public Integer getId() {
         return id;
     }
@@ -71,8 +62,6 @@ public class Pedido {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
 
     public double getTicket() {
         return ticket;
@@ -90,17 +79,17 @@ public class Pedido {
         this.usuario = usuario;
     }
 
-
-
     @Override
     public String toString() {
 
-        String result= "";
-        for(int i=0;i<this.getLineaPedidos().size();i++){
-            result += "Nombre : " + this.getLineaPedidos().get(i).getProducto().getNombre() + ", Cantidad : " + this.getLineaPedidos().get(i).getCantidad() + ", Total : €" + this.getLineaPedidos().get(i).getTotal() + "--";
+        String result = "";
+        for (int i = 0; i < this.getLineaPedidos().size(); i++) {
+            result += "Nombre : " + this.getLineaPedidos().get(i).getProducto().getNombre() + ", Cantidad : "
+                    + this.getLineaPedidos().get(i).getCantidad() + ", Total : €"
+                    + this.getLineaPedidos().get(i).getTotal() + "--";
         }
 
-       return result;
+        return result;
     }
 
     @Override
@@ -126,6 +115,6 @@ public class Pedido {
         } else if (!id.equals(other.id))
             return false;
         return true;
-    }  
-    
+    }
+
 }
