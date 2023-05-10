@@ -73,7 +73,7 @@ public class VoluntarioController {
     public String denegarPedidoVol(@PathVariable("idpedido") Integer idpedido) {
         Optional<Pedido> pedido = pedidoRepository.findById(idpedido);
         if (pedido.get().getEstado().equals("Aceptado por el vendedor")){
-            pedido.get().setEstado("Rechazada por voluntaria");
+            pedido.get().setEstado("Rechazado por voluntario");
             pedidoRepository.save(pedido.get());
         }
         return "redirect:/voluntario/" + pedido.get().getVoluntario().getId();
@@ -96,7 +96,7 @@ public class VoluntarioController {
     public String verpedidosRechazada(Model model, @PathVariable("idvoluntario") Integer idvoluntario) {
         Optional<Usuario> usuario= usuarioRepository.findById(idvoluntario);
         List<Pedido> pedidos = (List<Pedido>) pedidoRepository.findByVoluntario(usuario.get());
-        List<Pedido> filtered= pedidos.stream().filter(p->p.getEstado().equals("Rechazada por voluntaria")).collect(Collectors.toList());
+        List<Pedido> filtered= pedidos.stream().filter(p->p.getEstado().equals("Rechazado por voluntario")).collect(Collectors.toList());
         model.addAttribute("pedidos",filtered);
         model.addAttribute("idvoluntario",idvoluntario);
         return "voluntario/pedidosdenegado";
